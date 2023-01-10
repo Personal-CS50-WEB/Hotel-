@@ -1,5 +1,6 @@
 # MY HOTEL
-#### Video Demo:  <https://youtu.be/vNSFxNEIf5o>
+#### Video Demo:  
+https://youtu.be/vNSFxNEIf5o
 #### Description:
 
  ```
