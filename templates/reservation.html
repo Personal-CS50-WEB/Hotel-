@@ -1,0 +1,125 @@
+{% extends "userlayout.html" %}
+
+{% block title %}
+   My reservation
+{% endblock %}
+{% block main %}
+
+<table class="table">
+   <thead class="thead-dark">
+     <tr>
+      {% if session["user_type"] == 'admin'%}
+       <th scope="row" >user id</th>
+       {% endif %}
+       <th scope="col">Room type</th>
+       <th scope="col">Check in date</th>
+       <th scope="col">Check out date</th>
+       <th scope="col">Room number</th>
+       <th scope="col">Number of nights</th>
+       <th scope="col">Price per night</th>
+       <th scope="col">Total</th>
+
+     </tr>
+   </thead>
+   <tbody>
+      {% for room in table %}
+
+        <tr name="{{ room.order_id }}" >
+          {% if session["user_type"] == 'admin' %}
+            <td scope="row" >{{room.user_id}}</td>
+          {% endif %}
+            <td scope="row" >{{room.number_of_beds}} bed(s)</td>
+
+            <td scope="row" name="start_date" >{{ room.start_date }}</td>
+            <td scope="row" name="end_date" >{{ room.end_date }}</td>
+            <td scope="row" name="room_id" >{{ room.room_id }}</td>
+            <td scope="row" name="room_id" >{{ room.number_of_nights }}</td>
+            <td scope="row">{{room.price}}$</td>
+            <td scope="row">{{room.total}}$</td>
+            <td>
+              <form action="/reservation" method="post" role="form">
+                <input type="hidden" name="id" value="{{ room.order_id }}">
+                <input type="button" id="{{ room.order_id }}" name="submit" value="Edit reservation" class="btn btn-outline-primary" onclick="showDiv(); deleteUser(this.id);" />
+                <input type="submit" name="submit" value="Cancel" class="btn btn-outline-primary">
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+       </tbody>
+
+   </table>
+
+ <div class="message">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+     {% for message in messages %}
+        {{ message }}
+     {% endfor %}
+  {% endif %}
+{% endwith %}
+</div>
+
+   <div id="wrapper"  style="display:none;" class="answer_list">
+    <div >
+      <form action= "/reservation" method="post">
+        <div class="mb-3"><h3>Change reservation</h3></div>
+
+          <input type="hidden" name="order_id">
+        <div  class="mb-3">
+          <label for="room">Number of beds:</label>
+
+            <select class="form-control mx-auto w-auto" name="room" id="room">
+              <option disabled selected class="form-control mx-auto w-auto" >Beds</option>
+                {% for room in roomstype %}
+
+                  <option value= "{{ room.number_of_beds }}">
+                    {{ room.number_of_beds }}
+                  </option>
+
+                {% endfor %}
+            </select>
+          </div>
+        <div class="mb-3">
+          <input type ="submit" value="Change room" name ="submit" class="btn btn-outline-primary" >
+        </div>
+      </form>
+    </div>
+
+  <div >
+    <form action="/reservation" method="post">
+      <div class="mb-3"><h3>Change date</h3></div>
+
+      <div class="mb-3">
+        <input type="text" name="daterange" value="" />
+      </div>
+      <div>
+        <input type="submit" value ="Change date" name="submit" class="btn btn-outline-primary" >
+      </div>
+      <input type="hidden" name="order_id">
+    </form>
+
+  </div>
+</div>
+
+  <script>
+    $(function() {
+    $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+    }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+    });
+
+          function showDiv() {
+              document.getElementById('wrapper').style.display = "block";
+  }
+
+
+  function deleteUser(id) {
+
+$("input[name='order_id']").val(id);
+console.log("Input value set to: " + $("input[name='user_id_modal']").val());
+
+}
+    </script>
+{% endblock %}

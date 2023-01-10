@@ -1,0 +1,40 @@
+{% extends "userlayout.html" %}
+
+{% block title %}
+   Book
+{% endblock %}
+{% block main %}
+    <form action="/book" method="post">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto"  name="number of rooms" placeholder="Number of rooms" type="number" min="1">
+        </div>
+        <div  class="mb-3">
+            <label for="room">Number of beds:</label>
+            <select class="form-control mx-auto w-auto" name="room" id="room">
+                <option disabled selected class="form-control mx-auto w-auto" >Beds</option>
+                {%for room in rooms%}
+                <option value= "{{ room.number_of_beds }}">
+                    {{  room.number_of_beds  }}
+                </option>
+
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+
+
+            <input type="text" name="daterange" value="" />
+
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
+         </div>
+        <button class="btn btn-outline-primary" type="submit">Book</button>
+    </form>
+{% endblock %}

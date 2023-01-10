@@ -1,0 +1,53 @@
+{% extends "userlayout.html" %}
+
+{% block title %}
+    edit
+{% endblock %}
+
+{% block main %}
+<div id="wrapper">
+    <div id="left">
+    <form action= "/edit" method="post" name="confirm">
+        <div class="mb-3"><h3>Add rooms</h3></div>
+
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto"  name="number of rooms" placeholder="number of rooms" type="number" min="1">
+        </div>
+        <div  class="mb-3">
+            <label for="room">Number of beds:</label>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto"  name="number_of_beds" placeholder="Beds" type="number" min="1" max="4">
+            </select>
+        </div>
+        
+        <input type = "submit" value = "Add rooms" name="submit" class="btn btn-outline-primary">
+    </form>
+</div>
+<div id="right">
+    <form action="/edit" method="post" name="change">
+    <div class="mb-3"><h3>Change price</h3></div>
+    <div  class="mb-3">
+        <label for="room">Number of beds:</label>
+        <select class="form-control mx-auto w-auto" name="room" id="room">
+            <option disabled selected class="form-control mx-auto w-auto" >Beds</option>
+            {%for room in roomstype%}
+            <option value= "{{ room.number_of_beds }}">
+                {{  room.number_of_beds  }}
+            </option>
+
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="price" placeholder="Price" type="number" min="1">
+    </div>
+    <input type = "submit" value = "Change" name ="submit" class="btn btn-outline-primary" >
+
+</form>
+
+</div>
+</div>
+
+<div class="section">
+    <a class="nav-link" href="/">Back to homepage</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "userlayout.html" %}
+
+{% block title %}
+   admin
+{% endblock %}
+
+{% block main %}
+
+<div id="wrapper">
+    <div id="left">
+    <form action= "/admin" method="post">
+        <div class="mb-3"><h3>Add admin</h3></div>
+
+    <div  class="mb-3">
+        <label for="room">New Admin name:</label>
+        <select class="form-control mx-auto w-auto" name="name" id="name">
+            <option disabled selected class="form-control mx-auto w-auto" >Name</option>
+            {%for user in users%}
+            <option value= "{{ user.name  }}">
+                {{ user.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <input type = "submit" value = "Add"   name = "submit" class="btn btn-outline-primary" >
+    </div>
+
+    </form>
+</div>
+<div id="right">
+    <form action="/admin" method="post">
+    <div class="mb-3"><h3>Remove admin</h3></div>
+
+    <div  class="mb-3">
+        <div><label for="room">Remove Admin:</label></div>
+        <select class="form-control mx-auto w-auto" name="name" id="name">
+            <option disabled selected class="form-control mx-auto w-auto" >Name</option>
+            {%for admin in admins%}
+            <option value= "{{ admin.name  }}">
+                {{ admin.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <input type = "submit" value = "Remove" name = "submit" class="btn btn-outline-primary"" >
+
+    <script>
+
+        </script>
+</form>
+</div>
+</div>
+<div class="section">
+    <a class="nav-link" href="/">Back to homepage</a>
+    </div>
+{% endblock %}

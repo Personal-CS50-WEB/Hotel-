@@ -1,0 +1,11 @@
+{% extends "userlayout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <!-- https://memegen.link/ -->
+
+    <img alt="{{ top }}" class="border img-fluid" src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://api.memegen.link/images/sadfrog/%7B%7B_top_%7C_urlencode_%7D%7D_%7B%7B_bottom_%7C_urlencode_%7D%7D.jpg?watermark=memecomplete.com&token=w3u90sgckeojg5zii04y &width=400" title="{{ top }}">
+{% endblock %}
